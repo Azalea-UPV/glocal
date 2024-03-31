@@ -13,8 +13,10 @@ services:
       - ./client/build:/usr/share/nginx/html
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
-      - "80:80"
-      - "443:443"
+      - "8085:80"
+      - "8086:443"
+    environment:
+      VIRTUAL_HOST: report.azaleaupv.com
     restart: always
     depends_on:
       - frontend_build
@@ -24,5 +26,6 @@ services:
     volumes:
       - ./server/data:/app/data
     ports:
-      - "5000:5000"
+      - "5050:5000"
     restart: always
+    command: gunicorn -w 4 --certfile data/cert.pem --keyfile data/privkey.pem  -b 0.0.0.0:5000 app:app 
