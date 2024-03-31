@@ -1,0 +1,12 @@
+.map {
+    width: 100vw;
+    height: 100vh;
+}
+
+.leaflet-draw-section { 
+    display:none 
+}
+
+.leaflet-draw-toolbar{
+    display:none
+}

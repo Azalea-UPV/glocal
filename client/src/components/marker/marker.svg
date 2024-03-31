@@ -1,0 +1,7 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" stroke='black'>
+  <!-- Anillo exterior más fino -->
+  <circle cx="100" cy="100" r="50" stroke-width="8" fill="none" />
+
+  <!-- Anillo interior más grueso -->
+  <circle cx="100" cy="100" r="30" stroke-width="20" fill="none" />
+</svg>

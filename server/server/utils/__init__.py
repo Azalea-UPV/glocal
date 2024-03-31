@@ -1,0 +1,1 @@
+from .map import is_point_inside_polygon

@@ -1,0 +1,21 @@
+{
+    "login": "Iniciar sesión",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "username": "Nombre de usuario",
+    "noAccount": "¿No tienes una cuenta?",
+    "register": "Registrarse",
+    "incidence": "Incidencia",
+    "title": "Título",
+    "description": "Descripción",
+    "location": "Ubicación",
+    "save": "Guardar",
+    "close_incidence": "Cerrar incidencia",
+    "close_incidence_confirmation": "¿Estás seguro de que quieres cerrar esta incidencia? Si la cierras, ningún usuario podrá verla.",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "share_text": "¡Mira esta incidencia!",
+    "error_use_area": "El punto seleccionado está fuera del area de uso de la aplicación",
+    "remove_comment": "Eliminar comentario",
+    "remove_comment_confirmation": "¿Estás seguro de que quieres eliminar este comentario? Si lo eliminas, ningún usuario podrá verlo."
+}
