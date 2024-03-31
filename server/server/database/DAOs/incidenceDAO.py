@@ -59,7 +59,7 @@ class IncidenceDAO:
         if incidence is None:
             return None
 
-        incidence.closed = datetime.datetime.now(datetime.UTC)
+        incidence.closed = datetime.datetime.now()
         incidence.closed_by_id = user_id
 
         db.session.commit()
@@ -118,7 +118,7 @@ class IncidenceDAO:
         if comment is None:
             return None
 
-        comment.removed = datetime.datetime.now(datetime.UTC)
+        comment.removed = datetime.datetime.now()
         comment.removed_by_id = user_id
         db.session.commit()
 

@@ -117,7 +117,7 @@ def like():
         elif unliked:
             return {}, 200
         else:
-            return {}, 409
+            return {}, 500
 
     return {}, 500
 
