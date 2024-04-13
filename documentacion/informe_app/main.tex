@@ -8,6 +8,7 @@
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage{float}
+\usepackage{dirtree}
 \usepackage[left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
 
 \title{App participación ciudadana - Informe técnico}
@@ -168,8 +169,109 @@ Además de estas vistas, existe una vista adicional de \textbf{configuración}, 
 
 \subsubsection{Desarrollo del backend}
 
+El backend backend de la aplicación se ha desarrollado en Python utilizando el framework Flask. Para la base de datos, se ha utilizado sqlite, ya que es una opción ligera y fácil de usar, adecuada para aplicaciones de tamaño medio. Flask proporciona una estructura flexible para desarrollar aplicaciones web, permitiendo la creación de rutas, la gestión de solicitudes y respuestas HTTP, y la integración sencilla con bases de datos y otras herramientas.
+
+El backend se encarga de gestionar la lógica de negocio de la aplicación, incluyendo la autenticación de usuarios, la gestión de incidencias, la interacción con la base de datos y la comunicación con el frontend a través de API RESTful.
+
+La gestión de incidencias se realiza a través de rutas RESTful que permiten realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre las incidencias almacenadas en la base de datos. Esto incluye la creación de nuevas incidencias, la recuperación de incidencias existentes, la actualización de la información de incidencias y el borrado de incidencias.
+
+La comunicación entre el frontend y el backend se realiza mediante peticiones HTTP, utilizando el protocolo RESTful para definir las operaciones y los datos intercambiados entre ambos componentes. Esto permite una comunicación eficiente y escalable entre el frontend y el backend, garantizando una experiencia de usuario fluida y una gestión eficaz de los datos.
+
+El backend se ha estructurado en los siguientes directorios:
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.4\textwidth}
+        \dirtree{%
+        .1 /server.
+        .2 app.py.
+        .2 database.
+        .3 database.py.
+        .3 DAOs.
+        .4 appDAO.py.
+        .4 incidenceDAO.py.
+        .4 userDAO.py.
+        .2 routes.
+        .3 app.py.
+        .3 incidences.py.
+        .3 users.py.
+        .2 utils.
+        .3 map.py.
+        .2 tests.
+        }
+    \end{minipage}
+    \caption{Estructura de directorios del backend}
+    \label{fig:estructura_directorios_backend}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{/server}: Directorio raíz del backend.
+    \item \textbf{app.py}: Archivo principal que inicializa la aplicación Flask y configura las rutas y funcionalidades del servidor.
+    \item \textbf{database}: Directorio que contiene los archivos relacionados con la base de datos.
+    \item \textbf{database.py}: Archivo que define la configuración y la conexión con la base de datos SQLite.
+    \item \textbf{DAOs}: Directorio que contiene los objetos de acceso a datos (DAO, por sus siglas en inglés) para interactuar con la base de datos.
+    \begin{itemize}
+        \item \textbf{appDAO.py}: DAO para la gestión de la aplicación.
+        \item \textbf{incidenceDAO.py}: DAO para la gestión de incidencias.
+        \item \textbf{userDAO.py}: DAO para la gestión de usuarios.
+    \end{itemize}
+    \item \textbf{routes}: Directorio que contiene los archivos de rutas, que manejan las solicitudes HTTP y definen las respuestas del servidor.
+    \begin{itemize}
+        \item \textbf{app.py}: Archivo de rutas relacionadas con la aplicación en general.
+        \item \textbf{incidences.py}: Archivo de rutas relacionadas con las incidencias.
+        \item \textbf{users.py}: Archivo de rutas relacionadas con los usuarios.
+    \end{itemize}
+    \item \textbf{utils}: Directorio que contiene utilidades o funciones auxiliares utilizadas en el backend.
+    \begin{itemize}
+        \item \textbf{map.py}: Archivo que contiene funciones relacionadas con la manipulación de mapas o datos geoespaciales. 
+    \end{itemize}
+    \item \textbf{tests}: Directorio que contiene archivos de pruebas para realizar pruebas unitarias o de integración en el backend.
+\end{itemize}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=14cm]{images/db-diagrama.png}
+    \caption{Diagrama de la base de datos.}
+    \label{fig:diagrama_bd}
+\end{figure}
+
+En la figura \ref{fig:diagrama_bd} se puede apreciar el diagrama de la base de datos de la aplcación. En el diagrama se pueden apreciar las tablas principales de la base de datos y sus relaciones. A continuación, se describen brevemente estas entidades:
+
+\begin{itemize}
+    \item \textbf{incidences:} Almacena información sobre las incidencias reportadas por los usuarios.
+    \item \textbf{users:} Contiene información de los usuarios registrados en la aplicación.
+    \item \textbf{points:} Se utiliza para almacenar información sobre los límites del mapa de la aplicación.
+    \item \textbf{comments:} Guarda los comentarios realizados por los usuarios en las incidencias.
+    \item \textbf{likes:} Registra los ``me gusta'' o apoyos de los usuarios a una incidencia específica.
+\end{itemize}
+
 \newpage
 
 \section{Conclusiones}
+
+\subsection{Logros}
+
+Durante el desarrollo del proyecto, se lograron varios hitos importantes:
+
+\begin{itemize}
+    \item Se completó con éxito la implementación tanto del frontend como del backend de la aplicación, cumpliendo con los requisitos funcionales y no funcionales establecidos.
+    \item Se diseñó una interfaz de usuario intuitiva y atractiva que facilita la participación de los usuarios y mejora la experiencia de usuario.
+    \item Se estableció una conexión efectiva entre el frontend y el backend a través de una API RESTful, permitiendo una comunicación fluida y eficiente entre ambos componentes.
+    \item Se implementaron pruebas unitarias y de integración en el backend para garantizar la calidad del código y la estabilidad del sistema.
+    \item Se logró una estructura organizada y modular en el backend, facilitando el mantenimiento y la escalabilidad del sistema a largo plazo.
+\end{itemize}
+
+\subsection{Trabajo Futuro}
+
+A pesar de los logros alcanzados, existen áreas que podrían mejorarse o explorarse en el futuro:
+
+\begin{itemize}
+    \item Ampliar la funcionalidad de la aplicación para incluir características adicionales que mejoren la experiencia del usuario, como la integración con redes sociales, sistemas de notificación en tiempo real, etc.
+    \item Explorar opciones para mejorar la seguridad de la aplicación, implementando medidas adicionales de autenticación, autorización y protección contra vulnerabilidades conocidas.
+    \item Continuar mejorando y ampliando las pruebas automatizadas para garantizar la estabilidad y la calidad del código a medida que se realicen actualizaciones y adiciones al sistema.
+\end{itemize}
+
+
 
 \end{document}
