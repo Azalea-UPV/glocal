@@ -2,18 +2,17 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-class AppInfo(db.Model):
-    __tablename__ = 'appinfo'
-    id = db.Column(db.Integer, primary_key=True)
-    timestamp = db.Column(db.DateTime, default=db.func.current_timestamp(), nullable=False)
-
 class Point(db.Model):
     __tablename__ = 'points'
     id = db.Column(db.Integer, primary_key=True)
-    appinfoid = db.Column(db.Integer, db.ForeignKey('appinfo.id', name='fk_appinfo_id'), nullable=False)
     latitude = db.Column(db.Float, nullable=False)
     longitude = db.Column(db.Float, nullable=False)
-    appinfo = db.relationship('AppInfo', backref=db.backref('points', lazy=True))
+    
+class Class(db.Model):
+    __tablename__ = 'class'
+    id = db.Column(db.Integer, primary_key=True)
+    classname = db.Column(db.Text)
+    iconurl = db.Column(db.Text)
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -36,8 +35,11 @@ class Incidence(db.Model):
     address = db.Column(db.String(255))
     closed = db.Column(db.DateTime)
     closed_by_id = db.Column(db.Integer, db.ForeignKey('users.id', name='fk_closed_by_id'))
+    class_id = db.Column(db.Integer, db.ForeignKey('class.id'), name='fk_class_id')
+    
     creation_user = db.relationship('User', foreign_keys=[creation_user_id], backref=db.backref('created_incidences', lazy=True))
     closed_by = db.relationship('User', foreign_keys=[closed_by_id], backref=db.backref('closed_incidences', lazy=True))
+    kind = db.relationship('Class', foreign_keys=[class_id], backref=db.backref('incidences', lazy=True))
 
 class Like(db.Model):
     __tablename__ = 'likes'

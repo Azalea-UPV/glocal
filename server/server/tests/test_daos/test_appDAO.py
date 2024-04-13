@@ -35,10 +35,10 @@ class TestAppDAO(unittest.TestCase):
     @patch('server.database.database.db.session.add')
     @patch('server.database.database.db.session.flush')
     @patch('server.database.database.db.session.commit')
-    def test_set_appinfo(self, mock_commit, mock_flush, mock_add):
+    def test_set_points(self, mock_commit, mock_flush, mock_add):
         points = [(1.0, 2.0), (3.0, 4.0), (5.0, 6.0)]
 
-        result = self.dao.set_appinfo(points)
+        result = self.dao.set_points(points)
         self.assertTrue(result)
         mock_add.assert_called()
         mock_flush.assert_called()

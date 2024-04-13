@@ -45,6 +45,7 @@ def incidence():
         short_description = json_args.get("short_description")
         long_description = json_args.get("long_description")
         coordinates = json_args.get("coordinates")
+        kind = json_args.get("class")
 
         if coordinates is None or len(coordinates) != 2:
             return {"error": "wrong_coordinates"}, 400
@@ -61,6 +62,7 @@ def incidence():
             long_description,
             coordinates[0],
             coordinates[1],
+            kind
         )
         if added:
             return {}, 200
