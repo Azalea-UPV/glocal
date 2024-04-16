@@ -5,9 +5,9 @@
 \contentsline {section}{\numberline {2}Trabajo realizado}{3}{}%
 \contentsline {subsection}{\numberline {2.1}Casos de uso}{3}{}%
 \contentsline {subsection}{\numberline {2.2}Desarrollo}{5}{}%
-\contentsline {subsubsection}{\numberline {2.2.1}Obtención de mapas para la aplicación}{6}{}%
-\contentsline {subsubsection}{\numberline {2.2.2}Desarrollo del frontend}{7}{}%
-\contentsline {subsubsection}{\numberline {2.2.3}Desarrollo del backend}{8}{}%
+\contentsline {subsubsection}{\numberline {2.2.1}Obtención de mapas para la aplicación}{5}{}%
+\contentsline {subsubsection}{\numberline {2.2.2}Desarrollo del frontend}{5}{}%
+\contentsline {subsubsection}{\numberline {2.2.3}Desarrollo del backend}{7}{}%
 \contentsline {section}{\numberline {3}Conclusiones}{10}{}%
 \contentsline {subsection}{\numberline {3.1}Logros}{10}{}%
 \contentsline {subsection}{\numberline {3.2}Trabajo Futuro}{10}{}%

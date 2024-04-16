@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1713036763.54236 "/home/nico/Documents/Projects/Azalea/glocal/documentacion/informe_app/main.tex" "main.pdf" "main" 1713036765.09319 0
-  "/home/nico/Documents/Projects/Azalea/glocal/documentacion/informe_app/main.tex" 1713036761.79858 21065 985406243b71a65a4a8b58f60de956f4 ""
+["pdflatex"] 1713131303.55777 "/home/nico/Documents/Projects/Azalea/glocal/documentacion/informe_app/main.tex" "main.pdf" "main" 1713131305.79171 0
+  "/home/nico/Documents/Projects/Azalea/glocal/documentacion/informe_app/main.tex" 1713131303.31038 21321 7c2ff014af6bf7961ff5ce359695ec4c ""
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1711186958 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1711186958 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1711186958 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -28,6 +28,7 @@
   "/usr/share/texmf-dist/tex/latex/base/inputenc.sty" 1711186958 5048 425739d70251273bf93e3d51f3c40048 ""
   "/usr/share/texmf-dist/tex/latex/base/size10.clo" 1711186958 8448 dbc0dbf4156c0bb9ba01a1c685d3bad0 ""
   "/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty" 1711186958 13886 d1306dcf79a944f6988e688c1785f9ce ""
+  "/usr/share/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty" 1711186958 18450 88279bf67c81e69f8e3f1c1bad1a26c5 ""
   "/usr/share/texmf-dist/tex/latex/float/float.sty" 1711186958 6749 16d2656a1984957e674b149555f1ea1d ""
   "/usr/share/texmf-dist/tex/latex/geometry/geometry.sty" 1711186958 41601 9cf6c5257b1bc7af01a58859749dd37a ""
   "/usr/share/texmf-dist/tex/latex/graphics-cfg/color.cfg" 1711186958 1213 620bba36b25224fa9b7e1ccb4ecb76fd ""
@@ -50,7 +51,7 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1711186958 41588 b43d3e860a4f94167ee1e725ff526a72 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1711374738.05226 5312047 b07fcd2a9090df96fc745b92a3db793b ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1711464156 7135079 7116b2b509f3551d62dd9663719a6ee0 ""
-  "frontpage.aux" 1713036763.89191 451 21d65631978e90fb38fbb7c3107891ca "pdflatex"
+  "frontpage.aux" 1713131304.10704 451 21d65631978e90fb38fbb7c3107891ca "pdflatex"
   "frontpage.tex" 1711906647.09033 326 49cab9ac86d623224a90457c5447e480 ""
   "images/caso_de_uso_admin.png" 1711907110.2655 33926 c8fb42326344ab356ec16b6b7381aaa9 ""
   "images/caso_de_uso_moderador.png" 1711907110.2655 34805 51a9da1ef724402f37a25756f4893257 ""
@@ -63,9 +64,9 @@
   "images/mockup2.png" 1711906647.09366 295023 7c14cf06790e562c2259803b2b7297e8 ""
   "images/qgis.png" 1711906647.097 1631543 fcf5000b2da8c7047ae5f12529b368c2 ""
   "logos/LOGOAZALEA.png" 1711906647.10033 31017 9e98462fe0d037acdab4cfabce805aa9 ""
-  "main.aux" 1713036765.05192 3354 e3b625ec8da20d4719d3b15207092813 "pdflatex"
-  "main.tex" 1713036761.79858 21065 985406243b71a65a4a8b58f60de956f4 ""
-  "main.toc" 1713036765.05192 870 d3f3d5ab89308e8b342004166138d4a9 "pdflatex"
+  "main.aux" 1713131305.72705 3380 88002a4d8398a11b86478275eca0626d "pdflatex"
+  "main.tex" 1713131303.31038 21321 7c2ff014af6bf7961ff5ce359695ec4c ""
+  "main.toc" 1713131305.73038 870 c2ce8f8ffccab7145b916e13e5e18117 "pdflatex"
   (generated)
   "frontpage.aux"
   "main.aux"

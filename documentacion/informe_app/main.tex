@@ -10,6 +10,13 @@
 \usepackage{float}
 \usepackage{dirtree}
 \usepackage[left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{Informe técnico - App participación ciudadana}
+\fancyfoot[C]{\thepage}
+
 
 \title{App participación ciudadana - Informe técnico}
 \author{Control}
@@ -26,7 +33,8 @@
 \section{Tarea}
 
 \subsection{Objetivo perseguido}
-Existe una necesidad imperante de abordar los desafíos y motores socio-psicológicos, socio-técnicos e institucionales que impactan la participación efectiva del público en proyectos de infraestructura energética y urbana. Nuestra meta es explorar estrategias para superar las barreras existentes y lograr una participación significativa dentro de la comunidad universitaria. 
+
+La participación ciudadana en proyectos de infraestructura energética y urbana es fundamental para garantizar que las necesidades de la comunidad sean atendidas de manera efectiva. Sin embargo, esta participación a menudo se ve obstaculizada por la falta de conexión entre los proyectos y los intereses de la comunidad, así como por la falta de incentivos tangibles para la participación. El objetivo de este proyecto es abordar estas barreras y fomentar una participación más significativa en la comunidad universitaria, mediante la creación de una aplicación web de participación ciudadana llamada ``Azalea - Participa''.
 
 Algunos problemas frecuentes en proyectos de participación ciudadana incluyen la falta de conexión entre el proyecto y las necesidades/intereses ciudadanos, lo que resulta en baja participación. Además, si los resultados no se traducen en acciones concretas o las expectativas no se cumplen, los ciudadanos pueden volverse desilusionados y menos propensos a participar en el futuro. La falta de incentivos tangibles o reconocimiento también puede disminuir el interés ciudadano.
 
@@ -39,8 +47,6 @@ Durante el desarrollo de la aplicación ``Azalea - Participa'', nos enfocamos en
 \newpage
 
 \section{Trabajo realizado}
-
-
 
 \subsection{Casos de uso}
 
@@ -103,14 +109,31 @@ En la figura \ref{fig:caso_uso_admin}, se presentan los casos de uso diseñados 
 Los casos de uso para los administradores incluyen:
 \begin{itemize}
     \item \textbf{Establecimiento de límites geográficos:} Este caso de uso otorga al administrador la capacidad de definir y modificar los límites geográficos dentro de los cuales la aplicación estará disponible para su uso. Esto puede incluir la delimitación de áreas específicas de servicio o la restricción de la aplicación a ciertos territorios, adaptando así la aplicación a las necesidades y requisitos particulares de cada contexto.
-    \item \textbf{Adición de usuarios moderadores:} En este caso de uso, el administrador puede agregar nuevos usuarios al rol de moderador, otorgándoles así permisos y responsabilidades adicionales dentro del sistema. La capacidad de añadir moderadores es crucial para distribuir la carga de trabajo y garantizar una supervisión efectiva de las incidencias y los comentarios en la plataforma.
+    \item \textbf{Gestión de usuarios moderadores:} En este caso de uso, el administrador puede agregar o quitar usuarios al rol de moderador, otorgándoles así permisos y responsabilidades adicionales dentro del sistema. La capacidad de añadir moderadores es crucial para distribuir la carga de trabajo y garantizar una supervisión efectiva de las incidencias y los comentarios en la plataforma.
 \end{itemize}
 
 \subsection{Desarrollo}
 
-Para este proyecto, desde control, se contaba con unos prototipos ya realizados en formato PDF (figura \ref{fig:prototipos-previos}). Dados estos prototipos, se ha utilizado React para implementar la interfaz de la aplicación en formato web. Aunque ya se tenían prototipos, se han tenido que desarrollar otras vistas que no estaban prototipadas, como podrían ser la vista del login, o la vista para añadir una incidencia (figura \ref{fig:prototipos-creados}). Desde el primer momento se ha tratado que dicha web sea usable tanto en dispositivos móbiles cómo en ordenadores. Para la parte del backend, se ha utilizado python junto con flask. 
+\subsubsection{Obtención de mapas para la aplicación}
 
-La aplicación ha sido estructurada de manera que el frontend y el backend funcionen como servicios separados. Esto significa que cada uno puede ser ejecutado en máquinas o entornos en la nube diferentes. En lugar de tener ambos componentes acoplados de manera inseparable, la arquitectura de la aplicación permite una mayor flexibilidad al permitir que el frontend y el backend operen de manera independiente.
+El primer paso en el desarrollo de la aplicación fue la obtención de un mapa personalizado. Dado que los prototipos incluían mapas personalizados, se buscó una herramienta para la visualización de mapas en el frontend que permitiera la integración de mapas personalizados. Esta herramienta seleccionada fue Leaflet. Leaflet permite la incorporación de una URL personalizada para obtener los ``Tiles" (teselas) que componen el mapa visible en pantalla.
+
+En el contexto de Leaflet, los ``Tiles" son imágenes cuadradas pequeñas que forman el mosaico visible del mapa. Estas imágenes son descargadas dinámicamente a medida que el usuario navega por el mapa. La utilización de ``Tiles" facilita la visualización eficiente de mapas personalizados, ya que solo se descargan las partes necesarias, optimizando así la carga y la velocidad de respuesta de la aplicación. 
+
+La obtención, tanto de los mapas como de los tiles, se realizó utilizando la herramienta QGIS. QGIS es un sistema de información geográfica (SIG) de código abierto que ofrece funcionalidades robustas para la visualización, análisis y procesamiento de datos geoespaciales.
+
+\begin{figure}[H]
+    \center
+    \includegraphics[width=14cm]{images/qgis.png}
+    \caption{QGIS}
+    \label{fig:qgis}
+\end{figure}
+
+Con QGIS y el plugin QuickOSM se obtuvieron las capas necesarias para la aplicación. Posteriormente, se editaron los colores de cada una de las capas, tal y como se muestra en la figura \ref{fig:qgis}. Finalmente, se utilizó el plugin QTiles para la renderización de los tiles para la aplicación.
+
+\subsubsection{Desarrollo del frontend}
+
+Para este proyecto, desde control, se contaba con unos prototipos ya realizados en formato PDF (figura \ref{fig:prototipos-previos}). Dados estos prototipos, se ha utilizado React para implementar la interfaz de la aplicación en formato web. Aunque ya se tenían prototipos, se han tenido que desarrollar otras vistas que no estaban prototipadas, como podrían ser la vista del login, o la vista para añadir una incidencia (figura \ref{fig:prototipos-creados}). Desde el primer momento se ha tratado que dicha web sea usable tanto en dispositivos móbiles cómo en ordenadores.
 
 \begin{figure}[H]
     \center
@@ -127,25 +150,6 @@ La aplicación ha sido estructurada de manera que el frontend y el backend funci
     \caption{Prototipos creados para el desarrollo.}
     \label{fig:prototipos-creados}
 \end{figure}
-
-\subsubsection{Obtención de mapas para la aplicación}
-
-El primer paso en el desarrollo de la aplicación fue la obtención de un mapa personalizado. Dado que los prototipos incluían mapas personalizados, se buscó una herramienta para la visualización de mapas en el frontend que permitiera la integración de mapas personalizados. Esta herramienta seleccionada fue Leaflet. Leaflet permite la incorporación de una URL personalizada para obtener los "Tiles" (teselas) que componen el mapa visible en pantalla.
-
-En el contexto de Leaflet, los "Tiles" son imágenes cuadradas pequeñas que forman el mosaico visible del mapa. Estas imágenes son descargadas dinámicamente a medida que el usuario navega por el mapa. La utilización de "Tiles" facilita la visualización eficiente de mapas personalizados, ya que solo se descargan las partes necesarias, optimizando así la carga y la velocidad de respuesta de la aplicación. 
-
-La obtención, tanto de los mapas como de los tiles, se realizó utilizando la herramienta QGIS. QGIS es un sistema de información geográfica (SIG) de código abierto que ofrece funcionalidades robustas para la visualización, análisis y procesamiento de datos geoespaciales.
-
-\begin{figure}[H]
-    \center
-    \includegraphics[width=14cm]{images/qgis.png}
-    \caption{QGIS}
-    \label{fig:qgis}
-\end{figure}
-
-Con QGIS y el plugin QuickOSM se obtuvieron las capas necesarias para la aplicación. Posteriormente, se editaron los colores de cada una de las capas, tal y como se muestra en la figura \ref{fig:qgis}. Finalmente, se utilizó el plugin QTiles para la renderización de los tiles para la aplicación.
-
-\subsubsection{Desarrollo del frontend}
 
 Para el desarrollo del frontend, se han considerado las distintas vistas representadas en el diagrama de navegación del usuario, como se muestra en la figura \ref{fig:diagrama_navegacion_usuario}.
 
@@ -169,7 +173,9 @@ Además de estas vistas, existe una vista adicional de \textbf{configuración}, 
 
 \subsubsection{Desarrollo del backend}
 
-El backend backend de la aplicación se ha desarrollado en Python utilizando el framework Flask. Para la base de datos, se ha utilizado sqlite, ya que es una opción ligera y fácil de usar, adecuada para aplicaciones de tamaño medio. Flask proporciona una estructura flexible para desarrollar aplicaciones web, permitiendo la creación de rutas, la gestión de solicitudes y respuestas HTTP, y la integración sencilla con bases de datos y otras herramientas.
+La aplicación ha sido estructurada de manera que el frontend y el backend funcionen como servicios separados. Esto significa que cada uno puede ser ejecutado en máquinas o entornos en la nube diferentes. En lugar de tener ambos componentes acoplados de manera inseparable, la arquitectura de la aplicación permite una mayor flexibilidad al permitir que el frontend y el backend operen de manera independiente.
+
+El backend de la aplicación se ha desarrollado en Python utilizando el framework Flask. Para la base de datos, se ha utilizado sqlite, ya que es una opción ligera y fácil de usar, adecuada para aplicaciones de tamaño medio. Flask proporciona una estructura flexible para desarrollar aplicaciones web, permitiendo la creación de rutas, la gestión de solicitudes y respuestas HTTP, y la integración sencilla con bases de datos y otras herramientas.
 
 El backend se encarga de gestionar la lógica de negocio de la aplicación, incluyendo la autenticación de usuarios, la gestión de incidencias, la interacción con la base de datos y la comunicación con el frontend a través de API RESTful.
 
@@ -255,8 +261,8 @@ En la figura \ref{fig:diagrama_bd} se puede apreciar el diagrama de la base de d
 Durante el desarrollo del proyecto, se lograron varios hitos importantes:
 
 \begin{itemize}
-    \item Se completó con éxito la implementación tanto del frontend como del backend de la aplicación, cumpliendo con los requisitos funcionales y no funcionales establecidos.
-    \item Se diseñó una interfaz de usuario intuitiva y atractiva que facilita la participación de los usuarios y mejora la experiencia de usuario.
+    \item Se completó con éxito la implementación tanto del frontend como del backend de la aplicación, cumpliendo con los requisitos establecidos.
+    \item Se diseñó una interfaz de usuario intuitiva y atractiva que facilita la participación de los usuarios.
     \item Se estableció una conexión efectiva entre el frontend y el backend a través de una API RESTful, permitiendo una comunicación fluida y eficiente entre ambos componentes.
     \item Se implementaron pruebas unitarias y de integración en el backend para garantizar la calidad del código y la estabilidad del sistema.
     \item Se logró una estructura organizada y modular en el backend, facilitando el mantenimiento y la escalabilidad del sistema a largo plazo.
