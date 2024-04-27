@@ -13,7 +13,7 @@ import { useState, useEffect } from "react";
 import { Search as SearchIcon } from "@mui/icons-material";
 import { getUserList, setMod } from "../../logic/config";
 
-function UsersConfig() {
+function UsersConfig({ t }) {
   const [userList, setUserList] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(0);
@@ -70,9 +70,9 @@ function UsersConfig() {
 
   return (
     <>
-      <div>USUARIOS</div>
+      <div>{t('users')}</div>
       <TextField
-        label="Search"
+        label={t("search")}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         InputProps={{
@@ -86,9 +86,9 @@ function UsersConfig() {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>mail</TableCell>
-            <TableCell>nombre de usuario</TableCell>
-            <TableCell>mod</TableCell>
+            <TableCell>{t('mail')}</TableCell>
+            <TableCell>{t('username')}</TableCell>
+            <TableCell>{t('mod')}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>{usersElements}</TableBody>

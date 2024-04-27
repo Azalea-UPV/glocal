@@ -10,7 +10,7 @@ import {
 import { useState } from "react";
 import { addClass, removeClass } from "../../logic/config";
 
-function ClassesConfig({classes}) {
+function ClassesConfig({classes, t}) {
   const [className, setClassName] = useState("");
   const [iconURL, setIconURL] = useState("");
   const [cls, setClasses] = useState(classes);
@@ -27,7 +27,7 @@ function ClassesConfig({classes}) {
       <TableRow key={cl.id}>
         <TableCell>{cl.classname}</TableCell>
         <TableCell>{cl.iconurl}</TableCell>
-        <TableCell onClick={_removeClass}>borrar</TableCell>
+        <TableCell onClick={_removeClass}><Button> {t('remove')} </Button></TableCell>
       </TableRow>
     )
   }
@@ -45,8 +45,8 @@ function ClassesConfig({classes}) {
     <Table>
       <TableHead>
         <TableRow>
-          <TableCell>Clase</TableCell>
-          <TableCell>URL icono</TableCell>
+          <TableCell>{t('class')}</TableCell>
+          <TableCell>{t('iconurl')}</TableCell>
           <TableCell></TableCell>
         </TableRow>
       </TableHead>
@@ -65,7 +65,7 @@ function ClassesConfig({classes}) {
             />
           </TableCell>
           <TableCell>
-            <Button onClick={onClickAddClass}>Añadir</Button>
+            <Button onClick={onClickAddClass}>{t('add')}</Button>
           </TableCell>
         </TableRow>
         {classesElements}

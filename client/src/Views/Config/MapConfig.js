@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import Map from "../../components/map/Map";
 import { useRef, useState } from "react";
 
-function MapConfig({ limits }) {
+function MapConfig({ limits, t }) {
   const [isDrawing, setIsDrawing] = useState(false);
   const editControlRef = useRef();
   let _lastDrawn = null;
@@ -50,8 +50,8 @@ function MapConfig({ limits }) {
 
   return (
     <div>
-      <div className="title">Límites</div>
-      <p>Son los límites de la zona de uso de la aplicación.</p>
+      <div className="title">{t('limits')}</div>
+      <p>{t('limits_are')}</p>
       {limits ? (
         <Map
           limits={limits}
@@ -63,13 +63,13 @@ function MapConfig({ limits }) {
       ) : null}
       <div>
         <Button disabled={isDrawing} onClick={onClickDraw}>
-          Dibujar
+          {t('draw')}
         </Button>
         <Button disabled={!isDrawing} onClick={onClickSaveMap}>
-          Guardar
+          {t('save')}
         </Button>
         <Button disabled={!isDrawing} onClick={onClickCancel}>
-          Cancelar
+          {t('cancel')}
         </Button>
       </div>
     </div>
