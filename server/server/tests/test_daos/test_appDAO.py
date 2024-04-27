@@ -18,14 +18,13 @@ class TestAppDAO(unittest.TestCase):
         db.session.remove()
         db.drop_all()
         self.app_context.pop()  
-
+#db.session.query(Point).all()
     @patch('server.database.database.db.session.query')
     def test_get_appinfo(self, mock_query):
         mock_point1 = Mock(latitude=1.0, longitude=2.0)
         mock_point2 = Mock(latitude=3.0, longitude=4.0)
-        mock_appinfo = Mock(points=[mock_point1, mock_point2])
 
-        mock_query.return_value.order_by.return_value.first.return_value = mock_appinfo
+        mock_query.return_value.all.return_value = [mock_point1, mock_point2]
 
         result = self.dao.get_appinfo()
         self.assertEqual(len(result['points']), 2)
@@ -33,15 +32,13 @@ class TestAppDAO(unittest.TestCase):
         self.assertEqual(result['points'][1], (3.0, 4.0))
 
     @patch('server.database.database.db.session.add')
-    @patch('server.database.database.db.session.flush')
     @patch('server.database.database.db.session.commit')
-    def test_set_points(self, mock_commit, mock_flush, mock_add):
+    def test_set_points(self, mock_commit, mock_add):
         points = [(1.0, 2.0), (3.0, 4.0), (5.0, 6.0)]
 
         result = self.dao.set_points(points)
         self.assertTrue(result)
         mock_add.assert_called()
-        mock_flush.assert_called()
         mock_commit.assert_called()
 
 if __name__ == '__main__':

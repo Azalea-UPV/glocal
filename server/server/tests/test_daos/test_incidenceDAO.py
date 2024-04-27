@@ -65,7 +65,7 @@ class TestIncidenceDAO(unittest.TestCase):
     @patch('server.database.database.db.session.commit', new_callable=Mock)
     @patch('server.database.DAOs.incidenceDAO.get_address', return_value="Mocked Address")
     def test_add_incidence(self, mock_get_address, mock_commit, mock_add):
-        result = self.dao.add_incidence(1, "short_description", "long_description", 1.0, 1.0)
+        result = self.dao.add_incidence(1, "short_description", "long_description", 1.0, 1.0, 1)
 
         mock_get_address.assert_called_once_with(1.0, 1.0)
         mock_add.assert_called_once()
@@ -90,20 +90,20 @@ class TestIncidenceDAO(unittest.TestCase):
         self.assertEqual(incidence, IncidenceDAO.to_dict(self.incidence1))
 
     def test_close_incidence(self):
-        self.dao.add_incidence(1, "short_description", "long_description", 1.0, 1.0)
+        self.dao.add_incidence(1, "short_description", "long_description", 1.0, 1.0, 1)
         self.assertTrue(self.dao.close_incidence(1, 1))
 
     def test_like(self):
-        self.dao.add_incidence(1, "short_description", "long_description", 1.0, 1.0)
+        self.dao.add_incidence(1, "short_description", "long_description", 1.0, 1.0, 1)
         self.assertTrue(self.dao.like(1, 1))
 
     def test_unlike(self):
-        self.dao.add_incidence(1, "short_description", "long_description", 1.0, 1.0)
+        self.dao.add_incidence(1, "short_description", "long_description", 1.0, 1.0, 1)
         self.dao.like(1, 1)  # Dar like primero
         self.assertTrue(self.dao.unlike(1, 1))
 
     def test_is_liked(self):
-        self.dao.add_incidence(1, "short_description", "long_description", 1.0, 1.0)
+        self.dao.add_incidence(1, "short_description", "long_description", 1.0, 1.0, 1)
         self.dao.like(1, 1)  # Dar like primero
         self.assertTrue(self.dao.is_liked(1, 1))
 
