@@ -36,7 +36,7 @@ class IncidenceDAO:
             address=address,
             latitude=latitude,
             longitude=longitude,
-            kind=kind
+            class_id=kind
         )
         db.session.add(incidence)
         db.session.commit()
@@ -138,12 +138,12 @@ class IncidenceDAO:
             "user": incidence.creation_user.username,
             "address": incidence.address,
             "likes": len(incidence.likes),
-            "class": incidence.kind
+            "class": incidence.class_id
         }
 
     def to_short_dict(incidence):
         return {
             "id": incidence.id,
             "coordinates": (incidence.latitude, incidence.longitude),
-            "class": incidence.kind
+            "class": incidence.class_id
         }

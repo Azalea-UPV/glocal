@@ -176,7 +176,7 @@ function SheetContent({ incidence, appInfo, onCloseIncidence }) {
       }}
     >
       <div style={{ maxWidth: "75px" }}>
-        <Marker size={75} />
+        {MarkerIcon(appInfo, incidence)}
         <div style={{ fontSize: "0.8em", color: "gray" }}>
           {incidence.address}
         </div>
@@ -223,6 +223,15 @@ function SheetContent({ incidence, appInfo, onCloseIncidence }) {
       </div>
     </div>
   );
+}
+
+function MarkerIcon(appInfo, incidence) {
+  if (!appInfo || !appInfo['classes'] || !incidence || !appInfo['classes'][incidence['class']] || !appInfo['classes'][incidence['class']]['iconurl'] || !appInfo['classes'][incidence['class']]['iconurl'].trim()) {
+    return <Marker size={75} />
+  }
+
+  let iconUrl = appInfo['classes'][incidence['class']]['iconurl']
+  return <img src={iconUrl} style={{width: '75px'}} />
 }
 
 function BottomSheet({ incidence, appInfo, onCloseIncidence }) {

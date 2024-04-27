@@ -3,7 +3,7 @@ from ..database import db, Point, Class
 class AppDAO:
     def get_appinfo(self):
         points = [(point.latitude, point.longitude) for point in db.session.query(Point).all()]
-        classes = [{'id': x.id, 'classname': x.classname, 'iconurl': x.iconurl} for x in db.session.query(Class).all()]
+        classes = {x.id: {'id': x.id, 'classname': x.classname, 'iconurl': x.iconurl} for x in db.session.query(Class).filter(Class.removed.is_(None))}
         return {"points": points, "classes": classes}
 
     def set_points(self, points):
@@ -28,5 +28,6 @@ class AppDAO:
         return new_class.id
 
     def remove_class(self, cl_id):
-        db.session.query(Class).filter_by(id=cl_id).delete()
+        cl = db.session.query(Class).filter_by(id=cl_id)
+        cl.update({Class.removed: db.func.current_timestamp()})
         db.session.commit()

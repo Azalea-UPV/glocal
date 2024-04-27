@@ -13,6 +13,7 @@ class Class(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     classname = db.Column(db.Text)
     iconurl = db.Column(db.Text)
+    removed = db.Column(db.DateTime)
 
 class User(db.Model):
     __tablename__ = 'users'

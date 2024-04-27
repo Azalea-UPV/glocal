@@ -8,7 +8,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useState } from "react";
-import { addClass } from "../../logic/config";
+import { addClass, removeClass } from "../../logic/config";
 
 function ClassesConfig({classes}) {
   const [className, setClassName] = useState("");
@@ -16,10 +16,10 @@ function ClassesConfig({classes}) {
   const [cls, setClasses] = useState(classes);
 
   let classesElements = [];
-  for (let cl of cls) {
-    function removeClass() {
+  for (let cl of Object.values(cls)) {
+    function _removeClass() {
       removeClass(cl.id, () => {
-        setClasses(cls.filter((c) => c.id !== cl.id));
+        setClasses(Object.values(cls).filter((c) => c.id !== cl.id));
       });
     }
 
@@ -27,7 +27,7 @@ function ClassesConfig({classes}) {
       <TableRow key={cl.id}>
         <TableCell>{cl.classname}</TableCell>
         <TableCell>{cl.iconurl}</TableCell>
-        <TableCell onClick={removeClass}>borrar</TableCell>
+        <TableCell onClick={_removeClass}>borrar</TableCell>
       </TableRow>
     )
   }
@@ -35,7 +35,7 @@ function ClassesConfig({classes}) {
   function onClickAddClass() {
     addClass(className, iconURL, (data) => {
       let new_class = {'classname': className, 'iconurl': iconURL, 'id': data.id}
-      setClasses([...cls, new_class]);
+      setClasses([...Object.values(cls), new_class]);
       setClassName("");
       setIconURL("");
     });
