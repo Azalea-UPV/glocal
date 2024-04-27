@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.3.26)  14 APR 2024 23:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.3.26)  27 APR 2024 23:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -315,11 +315,11 @@ File: images/diagrama_vistas.png Graphic file (type png)
 Package pdftex.def Info: images/diagrama_vistas.png  used on input line 158.
 (pdftex.def)             Requested size: 142.26378pt x 113.90517pt.
  [6 <./images/mockup1.png> <./images/mockup2.png> <./images/login.png> <./images/crear_incidencia.png>] [7 <./images/diagrama_vistas.png>]
-<images/db-diagrama.png, id=53, 223.3143pt x 165.4983pt>
+<images/db-diagrama.png, id=53, 198.2607pt x 127.9179pt>
 File: images/db-diagrama.png Graphic file (type png)
 <use images/db-diagrama.png>
 Package pdftex.def Info: images/db-diagrama.png  used on input line 240.
-(pdftex.def)             Requested size: 398.33858pt x 295.20976pt.
+(pdftex.def)             Requested size: 398.33858pt x 257.01991pt.
  [8{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [9 <./images/db-diagrama.png>] [10] (./main.aux (./frontpage.aux)
 LaTeX Info: Redefining \. on input line 9.
 LaTeX Info: Redefining \% on input line 9.
@@ -338,7 +338,7 @@ Here is how much of TeX's memory you used:
  40 hyphenation exceptions out of 8191
  79i,11n,93p,1025b,365s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on main.pdf (11 pages, 2422962 bytes).
+Output written on main.pdf (11 pages, 2409853 bytes).
 PDF statistics:
  94 PDF objects out of 1000 (max. 8388607)
  46 compressed objects within 1 object stream

@@ -73,7 +73,7 @@ El usuario de la aplicación cuenta con una serie de acciones a su disposición,
 
     \item \textbf{Registro e inicio de sesión:} En este caso de uso, el usuario tiene la opción de registrarse en la plataforma para acceder a funcionalidades adicionales o iniciar sesión si ya cuenta con una cuenta previamente creada. El registro y el inicio de sesión son pasos fundamentales para garantizar la seguridad y la personalización de la experiencia del usuario.
     
-    \item \textbf{Creación de incidencias:} Mediante este caso de uso, el usuario puede reportar nuevas incidencias al sistema. Esto implica proporcionar detalles sobre la naturaleza del problema, adjuntar imágenes u otros archivos relevantes, y asignar una ubicación geográfica precisa para facilitar su posterior gestión y resolución.
+    \item \textbf{Creación de incidencias:} Mediante este caso de uso, el usuario puede reportar nuevas incidencias al sistema. Esto implica proporcionar detalles sobre la naturaleza del problema y asignar una ubicación geográfica precisa para facilitar su posterior gestión y resolución.
     
     \item \textbf{Apoyo a incidencias:} Aquí, el usuario tiene la capacidad de expresar su apoyo o solidaridad hacia una incidencia específica. Esta función fomenta la participación y la colaboración entre los usuarios, permitiéndoles mostrar su interés y preocupación por determinadas situaciones.
     
@@ -169,7 +169,7 @@ Las vistas contempladas son las siguientes:
     \item \textbf{Crear incidencia:} Esta vista permite a los usuarios reportar nuevas incidencias en el sistema. Aquí, los usuarios pueden proporcionar detalles sobre el problema observado y especificar la ubicación geográfica exacta de la incidencia mediante un mapa interactivo.
 \end{itemize}
 
-Además de estas vistas, existe una vista adicional de \textbf{configuración}, en la que los usuarios administradores pueden establecer los límites geográficos del uso de la aplicación y gestionar los usuarios moderadores.
+Además de estas vistas, existe una vista adicional de \textbf{configuración}, en la que los usuarios administradores pueden establecer los límites geográficos del uso de la aplicación y gestionar los usuarios moderadores, ademas de poder editar los tipos de incidencia disponibles.
 
 \subsubsection{Desarrollo del backend}
 
@@ -250,6 +250,7 @@ En la figura \ref{fig:diagrama_bd} se puede apreciar el diagrama de la base de d
     \item \textbf{points:} Se utiliza para almacenar información sobre los límites del mapa de la aplicación.
     \item \textbf{comments:} Guarda los comentarios realizados por los usuarios en las incidencias.
     \item \textbf{likes:} Registra los ``me gusta'' o apoyos de los usuarios a una incidencia específica.
+    \item \textbf{class:} Contiene información sobre los tipos de clases posibles para las incidencias.
 \end{itemize}
 
 \newpage
@@ -277,7 +278,5 @@ A pesar de los logros alcanzados, existen áreas que podrían mejorarse o explor
     \item Explorar opciones para mejorar la seguridad de la aplicación, implementando medidas adicionales de autenticación, autorización y protección contra vulnerabilidades conocidas.
     \item Continuar mejorando y ampliando las pruebas automatizadas para garantizar la estabilidad y la calidad del código a medida que se realicen actualizaciones y adiciones al sistema.
 \end{itemize}
-
-
 
 \end{document}
