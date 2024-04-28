@@ -1,7 +1,0 @@
-PWD /home/nico/Documents/Projects/Azalea/glocal/documentacion/informe_app
-INPUT /usr/share/texmf-dist/web2c/texmf.cnf
-INPUT /var/lib/texmf/web2c/pdftex/latex.fmt
-INPUT frontpage.tex
-OUTPUT frontpage.log
-INPUT /usr/share/texmf-dist/fonts/map/fontname/texfonts.map
-INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
