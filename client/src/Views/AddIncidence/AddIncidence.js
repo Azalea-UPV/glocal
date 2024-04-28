@@ -5,9 +5,9 @@ import { Button, MenuItem, Select, TextField } from "@mui/material";
 import { motion } from "framer-motion";
 import Map from "../../components/map/Map";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./addincidence.css";
 import Marker from "../../components/marker/Marker";
 import { useTranslation } from "react-i18next";
+import "./addincidence.css";
 
 function getClassesMenuItems(appinfo, t) {
   if (!appinfo || !appinfo["classes"] || appinfo["classes"].length <= 0) {
@@ -20,12 +20,7 @@ function getClassesMenuItems(appinfo, t) {
     res[cls["id"]] = (
       <MenuItem
         value={cls["id"]}
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          gap: "15px",
-        }}
+        className={'classSelect'}
       >
         {cls["iconurl"] && cls["iconurl"].trim() && (
           <img src={cls["iconurl"]} style={{ height: "30px" }} />
@@ -43,6 +38,7 @@ function AddIncidence() {
   const { t } = useTranslation();
   const [appInfo, setAppInfo] = useState(null);
   const [mapRef, setMapRef] = useState(null);
+  const [saving, setSaving] = useState(false);
   const [cls, setCls] = useState(-1);
   const location = useLocation();
   const navigate = useNavigate();
@@ -61,6 +57,7 @@ function AddIncidence() {
   let classesMenuItems = getClassesMenuItems(appInfo, t);
 
   function onClickSave() {
+    setSaving(true);
     let latlng = mapRef.getCenter();
     let incidence = {
       short_description: shortDescriptionRef.current.value,
@@ -73,6 +70,7 @@ function AddIncidence() {
     addIncidence(incidence, function (data) {
       //----------handle error----------------
       if (data.status != 200) {
+        setSaving(false);
         return;
       }
       navigate("/");
@@ -102,10 +100,10 @@ function AddIncidence() {
         fullWidth
         inputRef={longDescriptionRef}
       />
-      {appInfo && appInfo["classes"] && Object.values(appInfo["classes"]).length >= 0 && (
+      {appInfo && appInfo["classes"] && Object.values(appInfo["classes"]).length > 0 && (
         <>
           <div className="locationtitle">{t("class")}</div>
-          <Select style={{ width: "100%" }} value={cls} onChange={(event) => setCls(event.target.value)}>
+          <Select style={{ width: "100%", height: '50px'}} value={cls} onChange={(event) => setCls(event.target.value)}>
             {Object.values(classesMenuItems)}
           </Select>
         </>
@@ -128,7 +126,7 @@ function AddIncidence() {
           </div>
         </Map>
       ) : null}
-      <Button onClick={onClickSave}>{t("save")}</Button>
+      <Button onClick={onClickSave} disabled={saving}>{t("save")}</Button>
     </motion.div>
   );
 }

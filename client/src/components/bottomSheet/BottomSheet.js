@@ -177,7 +177,13 @@ function SheetContent({ incidence, appInfo, onCloseIncidence }) {
     >
       <div style={{ maxWidth: "75px" }}>
         {MarkerIcon(appInfo, incidence)}
-        <div style={{ fontSize: "0.8em", color: "gray" }}>
+        {incidence["class"] &&
+          appInfo["classes"] &&
+          appInfo["classes"][incidence["class"]] &&
+          appInfo["classes"][incidence["class"]]["classname"] && (
+            <div style={{ fontSize: "0.8em", textAlign: 'center', fontWeight: 'bold' }}>{appInfo["classes"][incidence["class"]]["classname"]}</div>
+          )}
+        <div style={{ fontSize: "0.75em", color: "gray", margin: '5px 0' }}>
           {incidence.address}
         </div>
       </div>
@@ -226,12 +232,19 @@ function SheetContent({ incidence, appInfo, onCloseIncidence }) {
 }
 
 function MarkerIcon(appInfo, incidence) {
-  if (!appInfo || !appInfo['classes'] || !incidence || !appInfo['classes'][incidence['class']] || !appInfo['classes'][incidence['class']]['iconurl'] || !appInfo['classes'][incidence['class']]['iconurl'].trim()) {
-    return <Marker size={75} />
+  if (
+    !appInfo ||
+    !appInfo["classes"] ||
+    !incidence ||
+    !appInfo["classes"][incidence["class"]] ||
+    !appInfo["classes"][incidence["class"]]["iconurl"] ||
+    !appInfo["classes"][incidence["class"]]["iconurl"].trim()
+  ) {
+    return <Marker size={75} />;
   }
 
-  let iconUrl = appInfo['classes'][incidence['class']]['iconurl']
-  return <img src={iconUrl} style={{width: '75px'}} />
+  let iconUrl = appInfo["classes"][incidence["class"]]["iconurl"];
+  return <img src={iconUrl} style={{ width: "75px" }} />;
 }
 
 function BottomSheet({ incidence, appInfo, onCloseIncidence }) {
