@@ -199,7 +199,7 @@ function SheetContent({ incidence, appInfo, onCloseIncidence }) {
         <div style={{ fontWeight: "bold", fontSize: "1.5em" }}>
           {incidence["short_description"]}
         </div>
-        <div>{incidence["long_description"]}</div>
+        <div style={{whiteSpace: 'pre-wrap'}}>{incidence["long_description"]}</div>
         <div
           style={{
             marginTop: "20px",
