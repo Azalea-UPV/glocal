@@ -41,7 +41,7 @@ Para conectar el frontend con el backend, existe un archivo config.js en el serv
 const env = {
     APP_NAME: "Azalea Participación",
     APP_ICON_URL: "/azalea-icon.png",
-    SERVER_URL: "http://localhost:5000",
+    SERVER_URL: "/app",
     TILES_URL: "/tiles/{z}/{x}/{y}.png"
 }
 ```
