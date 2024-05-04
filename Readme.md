@@ -41,8 +41,8 @@ Para conectar el frontend con el backend, existe un archivo config.js en el serv
 const env = {
     APP_NAME: "Azalea Participación",
     APP_ICON_URL: "/azalea-icon.png",
-    SERVER_URL: "http://localhost:5000",
-    TILES_URL: "/tiles/{z}/{x}/{y}.png"
+    SERVER_URL: "/api",
+    TILES_URL: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
 }
 ```
 Las variables son las siguientes:

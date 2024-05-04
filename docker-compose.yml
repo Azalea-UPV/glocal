@@ -18,6 +18,8 @@ services:
     restart: always
     depends_on:
       - frontend_build
+    networks:
+      - glocal
 
   backend:
     build: ./server
@@ -26,3 +28,10 @@ services:
     ports:
       - "5000:5000"
     restart: always
+    environment:
+      SCRIPT_NAME: /api
+    networks:
+      - glocal
+
+networks:
+  glocal:
