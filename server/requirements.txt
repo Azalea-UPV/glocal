@@ -1,0 +1,10 @@
+flask
+flask-cors
+flask-session
+uuid
+bcrypt
+requests
+flask-sqlalchemy
+flask-migrate
+cachelib
+gunicorn

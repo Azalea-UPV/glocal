@@ -1,0 +1,35 @@
+.configContainer {
+    margin: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.pointInputContainer {
+    display: flex;
+    flex-direction: wrap;
+    align-items: center;
+    gap: 25px;
+    margin: 25px;
+}
+
+.title {
+    margin: 25px;
+    font-size: 2em;
+}
+
+.saveButtonContainer {
+    margin: 50px;
+}
+
+.backbutton {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+}
+
+.configMap {
+    width: 90vw;
+    height: 80vh;
+}

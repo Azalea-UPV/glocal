@@ -1,0 +1,54 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    margin: 50px;
+    width: 80%;
+    margin: auto;
+    max-width: 800px;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+.locationtitle {
+    width: 100%;
+    text-justify: left;
+    margin-bottom: -25px;
+}
+
+.addIncidenceMap {
+    width: 100%;
+    height: 30vh;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.addmarker {
+    background-color: white;
+    border: 1px black solid;
+    padding: 10px;
+    border-radius: 50px;
+    width: 10px;
+    height: 10px;
+}
+
+.makerContainer {
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.MuiSelect-select, .classSelect {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 15px !important;
+}

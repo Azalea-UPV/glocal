@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
+    
+    <script src="%PUBLIC_URL%/config.js"></script>
+    <script>
+      window.config = { env };
+      if (env.APP_NAME) {
+        document.title = env.APP_NAME;
+      }
+      if (env.APP_ICON_URL) {
+        let favicon = document.createElement('link');
+        favicon.href = env.APP_ICON_URL;
+        favicon.rel = 'icon';
+        document.head.appendChild(favicon);
+      }
+    </script>
+  
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>
