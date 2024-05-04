@@ -12,8 +12,8 @@ function getAppInfo(callback) {
     .then(callback);
 }
 
-function saveConfig(points, callback) {
-  fetch(`${env.SERVER_URL}/appinfo`, {
+function setPoints(points, callback) {
+  fetch(`${env.SERVER_URL}/points`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -56,4 +56,32 @@ function setMod(userid, do_mod, callback) {
     .then(callback);
 }
 
-export { getAppInfo, saveConfig, getTilesUrl, getUserList, setMod };
+function addClass(className, iconURL, callback) {
+  fetch(`${env.SERVER_URL}/class`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({'classname': className, 'iconurl': iconURL}),
+  })
+    .then((response) => response.json())
+    .then(callback);
+}
+
+function removeClass(classId, callback) {
+  fetch(`${env.SERVER_URL}/class`, {
+    method: "DELETE",
+    credentials: "include",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({'classid': classId}),
+  })
+    .then((response) => response.json())
+    .then(callback);
+}
+
+export { getAppInfo, setPoints, getTilesUrl, getUserList, setMod, addClass, removeClass };

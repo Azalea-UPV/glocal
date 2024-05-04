@@ -17,5 +17,16 @@
     "share_text": "¡Mira esta incidencia!",
     "error_use_area": "El punto seleccionado está fuera del area de uso de la aplicación",
     "remove_comment": "Eliminar comentario",
-    "remove_comment_confirmation": "¿Estás seguro de que quieres eliminar este comentario? Si lo eliminas, ningún usuario podrá verlo."
+    "remove_comment_confirmation": "¿Estás seguro de que quieres eliminar este comentario? Si lo eliminas, ningún usuario podrá verlo.",
+    "other": "Otro",
+    "class": "Clase",
+    "iconurl": "Icono URL",
+    "add": "Añadir",
+    "draw": "Dibujar",
+    "users": "Usuarios",
+    "search": "Buscar",
+    "mail": "Mail",
+    "mod": "Mod",
+    "limits": "Límites",
+    "limits_are": "Son los límites de la zona de uso de la aplicación."
 }

@@ -19,18 +19,19 @@ import { Marker } from "react-leaflet";
 import { motion } from "framer-motion";
 
 import "./mainmap.css";
-import { divIcon } from "leaflet";
+import { divIcon, Icon } from "leaflet";
 import LanguageButtons from "../../components/languageButtons/LanguageButtons";
 import { Snackbar } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
-function getMarkers(incidences, onClick) {
+function getMarkers(incidences, onClick, appInfo) {
   const customMarker = divIcon({
     html: renderToString(<CustomMarker />),
     iconSize: [40, 40],
     iconAnchor: [20, 20],
     className: "custom-svg-icon",
   });
+
   let res = [];
   for (let incidence of incidences) {
     function handleOnClick() {
@@ -38,12 +39,25 @@ function getMarkers(incidences, onClick) {
         onClick(incidence);
       }
     }
+    let icon = customMarker;
+
+    if (appInfo && incidence['class'] && appInfo['classes'][incidence['class']] && appInfo['classes'][incidence['class']]['iconurl'] && appInfo['classes'][incidence['class']]['iconurl'].trim()) {
+      let cls = appInfo['classes'][incidence['class']]
+      console.log(cls)
+      icon = new Icon({
+        iconUrl: cls['iconurl'],
+        iconSize: [40, 40],
+        iconAnchor: [20, 20],
+        className: "custom-svg-icon",
+      });
+    }
+
     let marker = (
       <Marker
         position={incidence.coordinates}
         key={incidence.id}
         eventHandlers={{ click: handleOnClick }}
-        icon={customMarker}
+        icon={icon}
       />
     );
     res.push(marker);
@@ -62,6 +76,7 @@ function MainMap() {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
+  // handle get appinfo
   function handleAppInfo(data) {
     if (!data || data.points == undefined || data.points.length < 4) {
       navigate("/config");
@@ -70,11 +85,13 @@ function MainMap() {
     }
   }
 
+  // fetch appinfo
   useEffect(() => {
     getAppInfo(handleAppInfo);
     getIncidences((data) => setIncidences(data.incidences));
   }, []);
 
+  // si en la url está el id de la incidencia
   useEffect(() => {
     if (!incidences || !incidenceid || !mapRef) {
       return;
@@ -88,6 +105,7 @@ function MainMap() {
     }
   }, [incidences, mapRef]);
 
+  // handle on click locate button
   function onClickLocate() {
     if (!mapRef) {
       return;
@@ -101,10 +119,12 @@ function MainMap() {
     });
   }
 
+  // handle click log out button
   function onClickLogOut() {
     logout(() => getAppInfo(handleAppInfo));
   }
 
+  // handle user clicks button to create incidence
   function onClickIncidenceButton() {
     if (!appInfo["logged"]) {
       navigate("/login");
@@ -114,15 +134,18 @@ function MainMap() {
     }
   }
 
+  // handle user clicks incidence -> open bottom sheet
   function handleOnClickIncidence(incidence) {
     mapRef.setView(incidence.coordinates, 25);
     getIncidence(incidence.id, setIncidence);
   }
 
+  // handle user clicks on map out of incidence
   function handleOnClickMap() {
     setIncidence(null);
   }
 
+  // handle user clicks/holds to create incidence
   function handleOnContextMenuMap(e) {
     if (!e.latlng) {
       return;
@@ -145,9 +168,10 @@ function MainMap() {
     navigate("/add_incidence", { state: { coordinates: coordinates } });
   }
 
+  //create markers
   let markers = [];
   if (incidences) {
-    markers = getMarkers(incidences, handleOnClickIncidence);
+    markers = getMarkers(incidences, handleOnClickIncidence, appInfo);
   }
 
   function onCloseIncidence() {

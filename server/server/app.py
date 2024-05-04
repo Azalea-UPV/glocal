@@ -28,10 +28,8 @@ with app.app_context():
     db.create_all()
 Migrate(app, db, render_as_batch=True)
 
-
 def is_user_logged():
     return "user" in session
-
 
 from server.routes import incidences_blueprint, app_blueprint, users_blueprint
 app.register_blueprint(incidences_blueprint)

@@ -1,27 +1,33 @@
-from ..database import db, AppInfo, Point
-import datetime
+from ..database import db, Point, Class
 
 class AppDAO:
     def get_appinfo(self):
-        latest_appinfo = db.session.query(AppInfo).order_by(AppInfo.timestamp.desc()).first()
-        if not latest_appinfo:
-            return {"points": []}
+        points = [(point.latitude, point.longitude) for point in db.session.query(Point).all()]
+        classes = {x.id: {'id': x.id, 'classname': x.classname, 'iconurl': x.iconurl} for x in db.session.query(Class).filter(Class.removed.is_(None))}
+        return {"points": points, "classes": classes}
 
-        points = [(point.latitude, point.longitude) for point in latest_appinfo.points]
-        return {"points": points}
-
-    def set_appinfo(self, points):
+    def set_points(self, points):
         assert len(points) >= 3
         for point in points:
             assert len(point) == 2
 
-        new_appinfo = AppInfo(timestamp=datetime.datetime.now())
-        db.session.add(new_appinfo)
-        db.session.flush()
+        db.session.query(Point).delete()
+        db.session.commit()
 
         for point in points:
-            new_point = Point(appinfoid=new_appinfo.id, latitude=point[0], longitude=point[1])
+            new_point = Point(latitude=point[0], longitude=point[1])
             db.session.add(new_point)
 
         db.session.commit()
         return True
+    
+    def add_class(self, cl):
+        new_class = Class(classname=cl['classname'], iconurl=cl['iconurl'])
+        db.session.add(new_class)
+        db.session.commit()
+        return new_class.id
+
+    def remove_class(self, cl_id):
+        cl = db.session.query(Class).filter_by(id=cl_id)
+        cl.update({Class.removed: db.func.current_timestamp()})
+        db.session.commit()
