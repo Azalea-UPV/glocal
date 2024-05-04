@@ -118,10 +118,6 @@ function MainMap() {
       if (isInside([e.latlng.lat, e.latlng.lng], appInfo.points)) {
         mapRef.setView(e.latlng, 25);
       } else {
-        setSnackBarMessage(
-          t('error_use_area')
-        );
-        setOpenSnackBar(true);
         // mostrar toast de que estas fuera del area de accion
       }
     });
