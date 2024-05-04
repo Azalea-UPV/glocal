@@ -28,5 +28,6 @@
     "mail": "Mail",
     "mod": "Mod",
     "limits": "Limits",
-    "limits_are": "These are the limits of the application's area of use."
+    "limits_are": "These are the limits of the application's area of use.",
+    "show": "Show"
 }
