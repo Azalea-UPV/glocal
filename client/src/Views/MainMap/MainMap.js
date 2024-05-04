@@ -3,6 +3,7 @@ import LocateButton from "../../components/locateButton/LocateButton";
 import PersonButton from "../../components/personButton/PersonButton";
 import ExitButton from "../../components/exitButton/ExitButton";
 import BottomSheet from "../../components/bottomSheet/BottomSheet";
+import Filters from "./Filters";
 import Map from "../../components/map/Map";
 import { default as CustomMarker } from "../../components/marker/Marker";
 
@@ -43,7 +44,6 @@ function getMarkers(incidences, onClick, appInfo) {
 
     if (appInfo && incidence['class'] && appInfo['classes'][incidence['class']] && appInfo['classes'][incidence['class']]['iconurl'] && appInfo['classes'][incidence['class']]['iconurl'].trim()) {
       let cls = appInfo['classes'][incidence['class']]
-      console.log(cls)
       icon = new Icon({
         iconUrl: cls['iconurl'],
         iconSize: [40, 40],
@@ -68,6 +68,7 @@ function getMarkers(incidences, onClick, appInfo) {
 function MainMap() {
   const [incidence, setIncidence] = useState(null);
   const [incidences, setIncidences] = useState(null);
+  const [shownIncidences, setShownIncidences] = useState(null);
   const [appInfo, setAppInfo] = useState(null);
   const [mapRef, setMapRef] = useState(null);
   const [openSnackBar, setOpenSnackBar] = useState(false);
@@ -88,7 +89,10 @@ function MainMap() {
   // fetch appinfo
   useEffect(() => {
     getAppInfo(handleAppInfo);
-    getIncidences((data) => setIncidences(data.incidences));
+    getIncidences((data) => {
+      setIncidences(data.incidences);
+      setShownIncidences(data.incidences);
+    });
   }, []);
 
   // si en la url está el id de la incidencia
@@ -114,6 +118,10 @@ function MainMap() {
       if (isInside([e.latlng.lat, e.latlng.lng], appInfo.points)) {
         mapRef.setView(e.latlng, 25);
       } else {
+        setSnackBarMessage(
+          t('error_use_area')
+        );
+        setOpenSnackBar(true);
         // mostrar toast de que estas fuera del area de accion
       }
     });
@@ -171,7 +179,7 @@ function MainMap() {
   //create markers
   let markers = [];
   if (incidences) {
-    markers = getMarkers(incidences, handleOnClickIncidence, appInfo);
+    markers = getMarkers(shownIncidences, handleOnClickIncidence, appInfo);
   }
 
   function onCloseIncidence() {
@@ -198,6 +206,11 @@ function MainMap() {
       ) : null}
       <div className="topleftbuttons">
         <LocateButton onClick={onClickLocate} />
+        <Filters
+          appInfo={appInfo}
+          incidences={incidences}
+          setShownIncidences={setShownIncidences}
+        />
       </div>
       <div className="toprightbuttons">
         <LanguageButtons />
