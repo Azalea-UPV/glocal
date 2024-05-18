@@ -7,6 +7,7 @@ import "./config.css";
 import MapConfig from "./MapConfig";
 import UsersConfig from "./UsersConfig";
 import ClassesConfig from "./ClassesConfig";
+import AppSettings from "./AppSettings";
 
 function Config() {
   const [appInfo, setAppInfo] = useState(null);
@@ -27,6 +28,7 @@ function Config() {
       {appInfo && <MapConfig limits={appInfo.points} t={t} />}
       <UsersConfig t={t} />
       {appInfo && <ClassesConfig classes={appInfo.classes} t={t} />}
+      {appInfo && <AppSettings appInfo={appInfo} />}
     </div>
   );
 }

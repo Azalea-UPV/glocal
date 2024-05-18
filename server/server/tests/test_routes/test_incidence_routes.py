@@ -54,7 +54,7 @@ class TestIncidenceRoutes(unittest.TestCase):
         with self.client.session_transaction() as sess:
             sess['user'] = {"id": 1}
 
-        with patch.object(AppDAO, 'get_appinfo', return_value={"points": [(1, 1), (1, -1), (-1, 1), (-1, -1)]}):
+        with patch.object(AppDAO, 'get_appinfo', return_value={"points": [(1, 1), (1, -1), (-1, 1), (-1, -1)], "config": {"can_open_incidences": True}}):
             response = self.client.post('/incidence', json={"short_description": "short description", "long_description": "long description", "coordinates": [0.5, 0.5]})
             self.assertEqual(response.status_code, 200)
             
@@ -78,6 +78,10 @@ class TestIncidenceRoutes(unittest.TestCase):
 
             response = self.client.post('/incidence', json={"short_description": "short description", "long_description": "long description"})
             self.assertEqual(response.status_code, 400)
+
+        with patch.object(AppDAO, 'get_appinfo', return_value={"points": [(1, 1), (1, -1), (-1, 1), (-1, -1)], "config": {"can_open_incidences": False}}):
+            response = self.client.post('/incidence', json={"short_description": "short description", "long_description": "long description", "coordinates": [0.5, 0.5]})
+            self.assertEqual(response.status_code, 403)
 
     def test_remove_incidence(self):
         response = self.client.delete('/incidence', json={"incidenceid": 1})
@@ -170,11 +174,15 @@ class TestCommentRoute(unittest.TestCase):
         with self.client.session_transaction() as sess:
             sess['user'] = {"id": 1}
 
-        with patch.object(IncidenceDAO, 'add_comment', return_value=1):
+        with patch.object(AppDAO, 'get_appinfo', return_value={"config": {"can_comment": True}}), patch.object(IncidenceDAO, 'add_comment', return_value=1):
             response = self.client.post('/comment', json={"incidenceid": 1, "text": "text"})
         self.assertEqual(response.status_code, 200)
+
+        with patch.object(AppDAO, 'get_appinfo', return_value={"config": {"can_comment": False}}), patch.object(IncidenceDAO, 'add_comment', return_value=1):
+            response = self.client.post('/comment', json={"incidenceid": 1, "text": "text"})
+        self.assertEqual(response.status_code, 403)
     
-        with patch.object(IncidenceDAO, 'add_comment', return_value=1):
+        with patch.object(AppDAO, 'get_appinfo', return_value={"config": {"can_comment": True}}), patch.object(IncidenceDAO, 'add_comment', return_value=1):
             response = self.client.post('/comment', json={"text": "text"})
             self.assertEqual(response.status_code, 400)
 
@@ -184,7 +192,7 @@ class TestCommentRoute(unittest.TestCase):
             response = self.client.post('/comment', json={"incidenceid": 1, "text": ""})
             self.assertEqual(response.status_code, 400)
 
-        with patch.object(IncidenceDAO, 'add_comment', return_value=None):
+        with patch.object(AppDAO, 'get_appinfo', return_value={"config": {"can_comment": True}}), patch.object(IncidenceDAO, 'add_comment', return_value=None):
             response = self.client.post('/comment', json={"incidenceid": 1, "text": "text"})
         self.assertEqual(response.status_code, 404)
 
