@@ -42,10 +42,16 @@ function getMarkers(incidences, onClick, appInfo) {
     }
     let icon = customMarker;
 
-    if (appInfo && incidence['class'] && appInfo['classes'][incidence['class']] && appInfo['classes'][incidence['class']]['iconurl'] && appInfo['classes'][incidence['class']]['iconurl'].trim()) {
-      let cls = appInfo['classes'][incidence['class']]
+    if (
+      appInfo &&
+      incidence["class"] &&
+      appInfo["classes"][incidence["class"]] &&
+      appInfo["classes"][incidence["class"]]["iconurl"] &&
+      appInfo["classes"][incidence["class"]]["iconurl"].trim()
+    ) {
+      let cls = appInfo["classes"][incidence["class"]];
       icon = new Icon({
-        iconUrl: cls['iconurl'],
+        iconUrl: cls["iconurl"],
         iconSize: [40, 40],
         iconAnchor: [20, 20],
         className: "custom-svg-icon",
@@ -104,7 +110,7 @@ function MainMap() {
     for (let incidence of incidences) {
       if (incidence["id"] == incidenceid) {
         handleOnClickIncidence(incidence);
-        window.history.pushState(null, null, '/');
+        window.history.pushState(null, null, "/");
       }
     }
   }, [incidences, mapRef]);
@@ -151,15 +157,16 @@ function MainMap() {
 
   // handle user clicks/holds to create incidence
   function handleOnContextMenuMap(e) {
+    if (!appInfo["config"]["can_open_incidences"]) {
+      return;
+    }
     if (!e.latlng) {
       return;
     }
     let coordinates = [e.latlng.lat, e.latlng.lng];
 
     if (!isInside(coordinates, appInfo.points)) {
-      setSnackBarMessage(
-        t('error_use_area')
-      );
+      setSnackBarMessage(t("error_use_area"));
       setOpenSnackBar(true);
       return;
     }
@@ -217,7 +224,9 @@ function MainMap() {
         )}
       </div>
       <div className="bottomrightbuttons">
-        <IncidenceButton onClick={onClickIncidenceButton} />
+        {appInfo && appInfo["config"]["can_open_incidences"] && (
+          <IncidenceButton onClick={onClickIncidenceButton} />
+        )}
       </div>
       <Snackbar
         open={openSnackBar}
