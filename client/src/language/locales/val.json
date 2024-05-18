@@ -28,5 +28,15 @@
     "mail": "Mail",
     "mod": "Mod",
     "limits": "límits",
-    "limits_are": "Són els límits de la zona dús de laplicació."
+    "limits_are": "Són els límits de la zona dús de laplicació.",
+    "confirm_password": "Confirmar contrasenya",
+    "type_captcha": "Captcha",
+    "error_missing_mail": "Falta el correu.",
+    "error_missing_user": "Falta l'usuari.",
+    "error_missing_password": "Falta la contrasenya.",
+    "error_missing_captcha": "Falta el captcha.",
+    "error_invalid_mail": "Correu invàlid.",
+    "error_invalid_captcha": "Captcha invàlid.",
+    "error_passwords_not_matching": "Les contrasenyes no coincidixen.",
+    "error_mail_already_registered": "El correu ja està en ús."
 }

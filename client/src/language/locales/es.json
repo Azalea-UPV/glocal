@@ -28,5 +28,15 @@
     "mail": "Mail",
     "mod": "Mod",
     "limits": "Límites",
-    "limits_are": "Son los límites de la zona de uso de la aplicación."
+    "limits_are": "Son los límites de la zona de uso de la aplicación.",
+    "confirm_password": "Confirmar contraseña",
+    "type_captcha": "Captcha",
+    "error_missing_mail": "Falta el correo.",
+    "error_missing_user": "Falta el usuario.",
+    "error_missing_password": "Falta la contraseña.",
+    "error_missing_captcha": "Falta el captcha.",
+    "error_invalid_mail": "Correo inválido.",
+    "error_invalid_captcha": "Captcha inválido.",
+    "error_passwords_not_matching": "Las contraseñas no coinciden.",
+    "error_mail_already_registered": "El correo ya está en uso."
 }

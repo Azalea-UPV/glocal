@@ -1,6 +1,9 @@
-from flask import request, session, Blueprint
+from flask import request, session, Blueprint, send_file
 from server.database import UserDAO
 from server.app import app, is_user_logged
+from captcha.image import ImageCaptcha
+import string
+import secrets
 import re
 
 users_blueprint = Blueprint("users", __name__)
@@ -54,6 +57,8 @@ def signup():
     user = json_args.get("user", "").strip()
     mail = json_args.get("mail", "").strip()
     password = json_args.get("password", "")
+    captcha = json_args.get("captcha", "")
+    valid_captcha = session.pop("captcha_text")
 
     if mail == None or mail.strip() == "":
         return {"error": "missing_mail"}, 400
@@ -61,15 +66,20 @@ def signup():
         return {"error": "missing_password"}, 400
     if user == None or user.strip() == "":
         return {"error": "missing_user"}, 400
+    if captcha == None or captcha.strip() == "":
+        return {"error": "missing_captcha"}, 400
 
     email_regex = r"^\S+@\S+\.\S+$"
     if not re.match(email_regex, mail):
         return {"error": "invalid_mail"}, 400
 
+    if valid_captcha is None or captcha != valid_captcha:
+        return {"error": "invalid_captcha"}, 400
+
     if userDAO.add_user(user, mail, password):
         return {}, 200
     else:
-        return {}, 500
+        return {"error": "mail_already_registered"}, 500
 
 
 @app.route("/login", methods=["POST"])
@@ -103,3 +113,14 @@ def logout():
     """
     session.clear()
     return {}, 200
+
+
+@app.route("/captcha")
+def captcha():
+    characters = string.ascii_letters + string.digits
+    captcha_text = "".join(secrets.choice(characters) for _ in range(4))
+    session["captcha_text"] = captcha_text
+
+    image = ImageCaptcha()
+    data = image.generate(captcha_text)
+    return send_file(data, mimetype="image/png")
