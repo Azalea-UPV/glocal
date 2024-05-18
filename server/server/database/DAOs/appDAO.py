@@ -53,7 +53,7 @@ class AppDAO:
     def init_config(self):
         config_row = db.session.query(Config).first()
 
-        if not config_row:
+        if config_row is None:
             default_config = Config(can_open_incidences=True, can_comment=True)
             db.session.add(default_config)
             db.session.commit()

@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock, patch
 from server.database.database import db, Incidence, User
-from server.database.DAOs import IncidenceDAO
+from server.database.DAOs import IncidenceDAO, AppDAO
 from server import app
 import datetime
 
@@ -14,7 +14,7 @@ class TestIncidenceDAO(unittest.TestCase):
         self.app_context = app.app_context()
 
         self.app_context.push()
-
+        AppDAO()
         db.create_all()
 
     def tearDown(self):

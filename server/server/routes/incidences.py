@@ -39,11 +39,12 @@ def incidence():
             return {"incidences": incidences}, 200
 
     elif request.method == "POST":
-        if not is_user_logged() or (
-            AppDAO().get_appinfo()["config"]["can_open_incidences"]
-            and not UserDAO().is_admin(session["user"]["id"])
-        ):
+        if not is_user_logged():
             return {}, 403
+
+        if not AppDAO().get_appinfo()["config"]["can_open_incidences"] and not UserDAO().is_admin(session["user"]["id"]):
+            return {}, 403
+
         json_args = request.get_json()
         short_description = json_args.get("short_description")
         long_description = json_args.get("long_description")
@@ -135,11 +136,11 @@ def comment():
     DELETE /comment: Deletes a comment from an incidence.
     """
     if request.method == "POST":
-        if not is_user_logged() or (
-            AppDAO().get_appinfo()["config"]["can_comment"]
-            and not UserDAO().is_admin(session["user"]["id"])
-        ):
+        if not is_user_logged():
             return {}, 403
+        if not AppDAO().get_appinfo()["config"]["can_comment"] and not UserDAO().is_admin(session["user"]["id"]):
+            return {}, 403
+
         json_args = request.get_json()
 
         text = json_args.get("text")
