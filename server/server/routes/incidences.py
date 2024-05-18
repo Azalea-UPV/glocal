@@ -40,7 +40,7 @@ def incidence():
 
     elif request.method == "POST":
         if not is_user_logged() or (
-            AppDAO().get_appinfo()["can_open_incidences"]
+            AppDAO().get_appinfo()["config"]["can_open_incidences"]
             and not UserDAO().is_admin(session["user"]["id"])
         ):
             return {}, 403
@@ -136,7 +136,7 @@ def comment():
     """
     if request.method == "POST":
         if not is_user_logged() or (
-            AppDAO().get_appinfo()["can_comment"]
+            AppDAO().get_appinfo()["config"]["can_comment"]
             and not UserDAO().is_admin(session["user"]["id"])
         ):
             return {}, 403

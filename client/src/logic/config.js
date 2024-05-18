@@ -84,4 +84,18 @@ function removeClass(classId, callback) {
     .then(callback);
 }
 
-export { getAppInfo, setPoints, getTilesUrl, getUserList, setMod, addClass, removeClass };
+function setConfigField(field, value, callback) {
+  fetch(`${env.SERVER_URL}/appinfo`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({'field': field, 'value': value}),
+  })
+    .then((response) => response.json())
+    .then(callback);
+}
+
+export { getAppInfo, setPoints, getTilesUrl, getUserList, setMod, addClass, removeClass, setConfigField };

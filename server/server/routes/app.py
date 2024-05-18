@@ -4,8 +4,12 @@ from server.app import app, is_user_logged
 
 app_blueprint = Blueprint("app", __name__)
 
+field_functions = {
+    "canOpenIncidence": AppDAO().set_can_open_incidences,
+    "canComment": AppDAO().set_can_comment
+}
 
-@app.route("/appinfo", methods=["GET"])
+@app.route("/appinfo", methods=["GET", "POST"])
 def appinfo():
     """
     Endpoint to retrieve or update application information.
@@ -30,9 +34,12 @@ def appinfo():
         json_args = request.get_json()
         field = json_args.get("field")
         value = json_args.get("value")
+    
+        if field not in field_functions.keys():
+            return {}, 410
 
-        
-
+        field_functions[field](value)
+        return {}, 200
 
 @app.route("/points", methods=["POST"])
 def points():

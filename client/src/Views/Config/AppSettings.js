@@ -1,16 +1,27 @@
 import { Checkbox } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { setConfigField } from "../../logic/config";
 
 function AppSettings({ appInfo }) {
-  const [canOpenIncidences, setCanOpenIncidences] = useState();
-  const [canComment, setCanComment] = useState();
+  const [canOpenIncidences, setCanOpenIncidences] = useState(false);
+  const [canComment, setCanComment] = useState(false);
+  console.log(appInfo)
 
-  function onChangeUsersCanOpenIncidence(e) {
-    console.log(e.target.checked);
+  useEffect(function() {
+    setCanOpenIncidences(appInfo['config']['can_open_incidences']);
+    setCanComment(appInfo['config']['can_comment']);
+  }, [appInfo]);
+
+  function onChangeUsersCanOpenIncidence() {
+    setConfigField('canOpenIncidence', !canOpenIncidences, function() {
+      setCanOpenIncidences(!canOpenIncidences);
+    });
   }
 
-  function onChangeUsersCanComment(e) {
-    console.log(e.target.checked);
+  function onChangeUsersCanComment() {
+    setConfigField('canComment', !canComment, function() {
+      setCanComment(!canComment);
+    });
   }
 
   return (
