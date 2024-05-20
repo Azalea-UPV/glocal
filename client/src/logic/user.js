@@ -17,7 +17,7 @@ function login(email, password, callback) {
     });
 }
 
-function signUp(email, user, password, callback) {
+function signUp(email, user, password, captcha, callback) {
     fetch(`${env.SERVER_URL}/signup`, {
         method: 'POST',
         credentials: 'include',
@@ -26,12 +26,16 @@ function signUp(email, user, password, callback) {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': true
         },
-        body: JSON.stringify({mail: email, user: user, password: password})
-    }).then(response => {
-        if (callback) {
-            callback(response.status == 200)
+        body: JSON.stringify({mail: email, user: user, password: password, captcha: captcha})
+    })    
+    .then((response) => {
+        if (response.status == 200) {
+            callback(true);
         }
-    });
+        else {
+            response.json().then(callback)
+        }
+    })
 }
 
 function logout(callback) {
@@ -50,4 +54,9 @@ function logout(callback) {
     });
 }
 
-export { login, logout, signUp };
+function getCaptcha() {
+    const timestamp = new Date().getTime();
+    return `${env.SERVER_URL}/captcha?${timestamp}`
+}
+
+export { login, logout, signUp, getCaptcha };
