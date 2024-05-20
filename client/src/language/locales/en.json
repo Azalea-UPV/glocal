@@ -38,5 +38,6 @@
     "error_invalid_mail": "Invalid mail.",
     "error_invalid_captcha": "Invalid captcha.",
     "error_passwords_not_matching": "Passwords do not match.",
-    "error_mail_already_registered": "Mail is already in use."
+    "error_mail_already_registered": "Mail is already in use.",
+    "show": "Show"
 }

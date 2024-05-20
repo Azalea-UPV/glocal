@@ -1,4 +1,5 @@
 from server.database.database import db
+from server.database.DAOs import AppDAO
 
 from flask import Flask, session
 from flask_cors import CORS
@@ -26,6 +27,8 @@ CORS(app, supports_credentials=True)
 db.init_app(app)
 with app.app_context():
     db.create_all()
+    AppDAO().init_config()
+    
 Migrate(app, db, render_as_batch=True)
 
 def is_user_logged():

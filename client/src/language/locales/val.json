@@ -38,5 +38,6 @@
     "error_invalid_mail": "Correu invàlid.",
     "error_invalid_captcha": "Captcha invàlid.",
     "error_passwords_not_matching": "Les contrasenyes no coincidixen.",
-    "error_mail_already_registered": "El correu ja està en ús."
+    "error_mail_already_registered": "El correu ja està en ús.",
+    "show": "Mostrar"
 }

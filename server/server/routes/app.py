@@ -4,25 +4,42 @@ from server.app import app, is_user_logged
 
 app_blueprint = Blueprint("app", __name__)
 
+field_functions = {
+    "canOpenIncidence": AppDAO().set_can_open_incidences,
+    "canComment": AppDAO().set_can_comment
+}
 
-@app.route("/appinfo", methods=["GET"])
+@app.route("/appinfo", methods=["GET", "POST"])
 def appinfo():
     """
     Endpoint to retrieve or update application information.
     GET /appinfo: Retrieves application information.
     """
-    appDAO = AppDAO()
-    res = appDAO.get_appinfo()
-    res["logged"] = is_user_logged()
-    if res["logged"] == True:
-        user = UserDAO().get_user_by_id(session["user"]["id"])
-        if user is None:
-            session.clear()
-            res["logged"] = False
-        else:
-            res["user"] = user
-    return res
+    if request.method == "GET":
+        appDAO = AppDAO()
+        res = appDAO.get_appinfo()
+        res["logged"] = is_user_logged()
+        if res["logged"] == True:
+            user = UserDAO().get_user_by_id(session["user"]["id"])
+            if user is None:
+                session.clear()
+                res["logged"] = False
+            else:
+                res["user"] = user
+        return res
+    elif request.method == "POST":
+        if not is_user_logged() or not UserDAO().is_admin(session["user"]["id"]):
+            return {}, 403
+        
+        json_args = request.get_json()
+        field = json_args.get("field")
+        value = json_args.get("value")
+    
+        if field not in field_functions.keys():
+            return {}, 410
 
+        field_functions[field](value)
+        return {}, 200
 
 @app.route("/points", methods=["POST"])
 def points():
