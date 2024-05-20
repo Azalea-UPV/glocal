@@ -58,6 +58,10 @@ def signup():
     mail = json_args.get("mail", "").strip()
     password = json_args.get("password", "")
     captcha = json_args.get("captcha", "")
+
+    if "captcha_text" not in session:
+        return {"error": "missing_captcha"}, 400
+    
     valid_captcha = session.pop("captcha_text")
 
     if mail == None or mail.strip() == "":
