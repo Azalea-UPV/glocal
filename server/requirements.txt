@@ -7,6 +7,5 @@ requests
 flask-sqlalchemy
 flask-migrate
 captcha
-secrets
 cachelib
 gunicorn
