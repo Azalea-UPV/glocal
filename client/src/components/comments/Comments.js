@@ -96,8 +96,10 @@ function CommentsContainer({ comments, setComments, appInfo }) {
       <Comment
         comment={comment}
         appInfo={appInfo}
-        onClickRemoveComment={() => {onClickRemoveComment(comment['id'])}}
-        key={comment['id']}
+        onClickRemoveComment={() => {
+          onClickRemoveComment(comment["id"]);
+        }}
+        key={comment["id"]}
       />
     );
   }
@@ -130,13 +132,17 @@ function Comments({ incidence, appInfo }) {
 
   function onKeyUp(e) {
     if (e.key === "Enter") {
-      if (!appInfo['logged']) {
-        navigate('/login');
+      if (!appInfo["logged"]) {
+        navigate("/login");
         return;
       }
       addComment(incidence["id"], value, (data) => {
         setComments([
-          { text: value, user: appInfo["user"]["username"], id: data["commentid"] },
+          {
+            text: value,
+            user: appInfo["user"]["username"],
+            id: data["commentid"],
+          },
           ...comments,
         ]);
       });
@@ -146,12 +152,14 @@ function Comments({ incidence, appInfo }) {
 
   return (
     <>
-      <TextField
-        style={{ maxWidth: "800px" }}
-        onKeyUp={onKeyUp}
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-      />
+      {appInfo && appInfo["config"]["can_comment"] && (
+        <TextField
+          style={{ maxWidth: "800px" }}
+          onKeyUp={onKeyUp}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
+      )}
       <CommentsContainer
         comments={comments}
         setComments={setComments}

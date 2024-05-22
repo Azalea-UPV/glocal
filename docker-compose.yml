@@ -20,12 +20,20 @@ services:
     restart: always
     depends_on:
       - frontend_build
+    networks:
+      - glocal
 
   backend:
     build: ./server
     volumes:
       - ./server/data:/app/data
     ports:
-      - "5050:5000"
+      - "5000:5000"
     restart: always
-    command: gunicorn -w 4 --certfile data/cert.pem --keyfile data/privkey.pem  -b 0.0.0.0:5000 app:app 
+    environment:
+      SCRIPT_NAME: /api
+    networks:
+      - glocal
+
+networks:
+  glocal:

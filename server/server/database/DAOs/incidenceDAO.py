@@ -27,9 +27,7 @@ def get_address(latitude, longitude):
 
 
 class IncidenceDAO:
-    def add_incidence(
-        self, userid, short_description, long_description, latitude, longitude
-    ):
+    def add_incidence(self, userid, short_description, long_description, latitude, longitude, kind):
         address = get_address(latitude, longitude)
         incidence = Incidence(
             creation_user_id=userid,
@@ -38,6 +36,7 @@ class IncidenceDAO:
             address=address,
             latitude=latitude,
             longitude=longitude,
+            class_id=kind
         )
         db.session.add(incidence)
         db.session.commit()
@@ -139,10 +138,12 @@ class IncidenceDAO:
             "user": incidence.creation_user.username,
             "address": incidence.address,
             "likes": len(incidence.likes),
+            "class": incidence.class_id
         }
 
     def to_short_dict(incidence):
         return {
             "id": incidence.id,
             "coordinates": (incidence.latitude, incidence.longitude),
+            "class": incidence.class_id
         }

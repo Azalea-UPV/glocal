@@ -44,23 +44,40 @@ class TestUserRoutes(unittest.TestCase):
         response = self.client.post('/signup', json={})
         self.assertEqual(response.status_code, 400)
 
-        response = self.client.post('/signup', json={"user": "testuser", "mail": "test@example.com"})
-        self.assertEqual(response.status_code, 400)
+        with self.client.session_transaction() as sess:
+            sess['captcha_text'] = 'valid_captcha'
 
-        response = self.client.post('/signup', json={"user": "testuser", "password": "password"})
-        self.assertEqual(response.status_code, 400)
+            response = self.client.post('/signup', json={"user": "testuser", "mail": "test@example.com", "captcha": "valid_captcha"})
+            self.assertEqual(response.status_code, 400)
 
-        response = self.client.post('/signup', json={"mail": "test@example.com", "password": "password"})
-        self.assertEqual(response.status_code, 400)
+        with self.client.session_transaction() as sess:
+            sess['captcha_text'] = 'valid_captcha'
+            response = self.client.post('/signup', json={"user": "testuser", "password": "password", "captcha": "valid_captcha"})
+            self.assertEqual(response.status_code, 400)
 
-        invalid_email_data = {"user": "testuser", "mail": "invalid_email", "password": "password"}
-        response = self.client.post('/signup', json=invalid_email_data)
-        self.assertEqual(response.status_code, 400)
+        with self.client.session_transaction() as sess:
+            sess['captcha_text'] = 'valid_captcha'
+            response = self.client.post('/signup', json={"mail": "test@example.com", "password": "password", "captcha": "valid_captcha"})
+            self.assertEqual(response.status_code, 400)
 
-        valid_signup_data = {"user": "testuser", "mail": "test@example.com", "password": "password"}
-        with patch.object(UserDAO, 'add_user', return_value=True):
-            response = self.client.post('/signup', json=valid_signup_data)
-        self.assertEqual(response.status_code, 200)
+        with self.client.session_transaction() as sess:
+            sess['captcha_text'] = 'valid_captcha'
+            invalid_email_data = {"user": "testuser", "mail": "invalid_email", "password": "password", "captcha": "valid_captcha"}
+            response = self.client.post('/signup', json=invalid_email_data)
+            self.assertEqual(response.status_code, 400)
+
+        with self.client.session_transaction() as sess:
+            sess['captcha_text'] = 'valid_captcha'
+            invalid_capthca_data = {"user": "testuser", "mail": "test@example.com", "password": "password", "captcha": "invalid_captcha"}
+            response = self.client.post('/signup', json=invalid_capthca_data)
+            self.assertEqual(response.status_code, 400)
+
+        with self.client.session_transaction() as sess:
+            sess['captcha_text'] = 'valid_captcha'
+            valid_signup_data = {"user": "testuser", "mail": "test@example.com", "password": "password", "captcha": "valid_captcha"}
+            with patch.object(UserDAO, 'add_user', return_value=True):
+                response = self.client.post('/signup', json=valid_signup_data)
+            self.assertEqual(response.status_code, 200)
 
     def test_login(self):
         response = self.client.post('/login', json={})
