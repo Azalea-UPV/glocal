@@ -29,5 +29,15 @@
     "mod": "Mod",
     "limits": "Limits",
     "limits_are": "These are the limits of the application's area of use.",
+    "confirm_password": "Confirm password",
+    "type_captcha": "Captcha",
+    "error_missing_mail": "Missing mail.",
+    "error_missing_user": "Missing user.",
+    "error_missing_password": "Missing password.",
+    "error_missing_captcha": "Missing captcha.",
+    "error_invalid_mail": "Invalid mail.",
+    "error_invalid_captcha": "Invalid captcha.",
+    "error_passwords_not_matching": "Passwords do not match.",
+    "error_mail_already_registered": "Mail is already in use.",
     "show": "Show"
 }

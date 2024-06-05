@@ -14,8 +14,14 @@ const style = {
   alignItems: "center",
 };
 
-function get_filters_elements(classes, showClasses, setShowClasses) {
+function get_filters_elements(classes, showClasses, setShowClasses, t) {
   let res = [];
+  classes[-1] = {
+    classname: t("other"),
+    id: -1,
+    iconurl: null,
+  };
+
   for (let cls of Object.keys(classes)) {
     cls = classes[cls];
     const class_id = cls["id"];
@@ -38,7 +44,7 @@ function get_filters_elements(classes, showClasses, setShowClasses) {
           cursor: "pointer",
         }}
         onClick={onClickFilter}
-        key={cls['id']}
+        key={cls["id"]}
       >
         {cls["iconurl"] && cls["iconurl"].trim() != "" && (
           <img
@@ -77,13 +83,14 @@ function Filters({ appInfo, incidences, setShownIncidences }) {
 
   useEffect(
     function () {
-      if (appInfo && Object.keys(appInfo["classes"]).length > 0) {
+      if (appInfo && Object.keys(appInfo["classes"]).length >= 0) {
         let classes = appInfo["classes"];
-        let _showClasses = {};
+        let _showClasses = { "-1": true };
         for (let cls of Object.keys(classes)) {
           cls = classes[cls];
           _showClasses[cls["id"]] = true;
         }
+        showClasses[-1] = true;
         setShowClasses(_showClasses);
       }
     },
@@ -98,23 +105,28 @@ function Filters({ appInfo, incidences, setShownIncidences }) {
 
       let _incidences = [];
       for (let incidence of incidences) {
+        if (!incidence["class"]) {
+          incidence["class"] = -1;
+        }
+
         if (showClasses[incidence["class"]]) {
           _incidences.push(incidence);
         }
       }
       setShownIncidences(_incidences);
     },
-    [showClasses, incidences]
+    [showClasses, incidences, appInfo]
   );
 
-  if (!appInfo || Object.keys(appInfo["classes"]).length <= 1) {
+  if (!appInfo || Object.keys(appInfo["classes"]).length < 1) {
     return <></>;
   }
 
   filtersElements = get_filters_elements(
     appInfo["classes"],
     showClasses,
-    setShowClasses
+    setShowClasses,
+    t
   );
 
   return (
