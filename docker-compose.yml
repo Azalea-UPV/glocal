@@ -27,8 +27,6 @@ services:
     build: ./server
     volumes:
       - ./server/data:/app/data
-    ports:
-      - "5000:5000"
     restart: always
     environment:
       SCRIPT_NAME: /api
